@@ -13,9 +13,8 @@ routes.post('/login',authController.loginUser)
 
 
 //admin routes
-routes.post('/admin/register',authController.registerAdmin);
-routes.post('/logout',authMiddleware,authController.removeToken)
-routes.post("/admin/login" , authController.loginAdmin);
+routes.post('/admin/register',authController.registerUser);
+routes.post("/admin/login" , authController.loginUser);
 
 routes.post('/admin/add-book',authMiddleware,adminController.addBook);
 

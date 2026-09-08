@@ -1,5 +1,6 @@
 // src/models/userModel.js
-const supabase = require("../config/db");
+const {supabase,supabaseServiceRole} = require("../config/db");
+
 
 exports.findByEmailOrUserName = async (username, email) => {
     const {data,error }= await supabase
@@ -17,7 +18,7 @@ exports.findByEmailOrUserName = async (username, email) => {
 // Change 'password' to 'password_hash' in the INSERT query
 exports.createUser = async (username, email, password, role) => {
   console.log(username,email,password,role)
-  const {data,error} = await supabase
+  const {data,error} = await supabaseServiceRole
   .from("users")
   .insert([{username:username,email:email,password_hash:password,role:role}])  
   .select()
