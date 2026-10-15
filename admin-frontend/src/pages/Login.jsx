@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../store/userSlice';
+import ForgotPassword from './ForgotPassword';
 
 const LoginAdmin = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,6 +12,11 @@ const LoginAdmin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+
+  const handleForgotPasswrod = async (e) =>{
+    navigate('/admin/forgot-password')
+
+  }
   const onSubmitLogin = async (e) => {
     e.preventDefault();
     setLoginText("Loading...")
@@ -82,6 +88,9 @@ const LoginAdmin = () => {
         <p style={{ color: '#fff', textAlign: 'center', fontSize: '0.9rem' }}>
           Haven't an account? <Link to="/admin/register" className="login-link">Register</Link>
         </p>
+        <button onClick={handleForgotPasswrod} className='text-sm' style={{boxShadow:'none',font:'12px' ,backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}>
+          <span style={{ color: 'red',font:'12px' }}>Forgot Password!</span>
+        </button>
       </div>
     </div>
   );

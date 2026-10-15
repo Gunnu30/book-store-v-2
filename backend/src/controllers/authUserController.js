@@ -64,8 +64,12 @@ exports.loginUser = async (req, res) => {
   console.log(email,password)
   try {
     const user = await userModel.findUserByEmail(email);
+    console.log(user)
     if (!user) return res.status(400).json({ error: "Invalid credentials" });
 
+
+    if(user.role !== 'admin')return res.status(400).json({message:"Your Not Admin"});
+    
     const isMatch = await bcrypt.compare(password, user.password_hash);
     if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
 
@@ -96,3 +100,5 @@ exports.removeToken = async (req, res) => {
     return res.status(500).json({ message: "Logout Failed" });
   }
 };
+
+

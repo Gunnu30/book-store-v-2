@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const {createClient} = require("redis")
 
 const cookieParser = require("cookie-parser");
 const authMiddleware = require("./middleware/authMiddleware")
@@ -17,20 +16,7 @@ app.use(cors({
   credentials: true
 }));
 
-const redis = createClient({url : process.env.REDIS_URL});
-console.log(redis)
-redis.on("error" , (err) => console.log("Error in redis connections: " , err));
-(async () =>{
-  try{
-    await redis.connect();
-    await redis.set("testKey" , "Hello i am ashrith setting the redis");
 
-    const val = await redis.get("testKey");
-    console.log(val);
-  }catch(err){
-console.log(err)
-  }
-})();
 app.get("/auth", authMiddleware, (req, res) => {
    res.json({ message: "Token valid", user: req.user.username }); 
 });
@@ -38,7 +24,7 @@ app.get("/auth", authMiddleware, (req, res) => {
 app.use(require("./routes/authRoutes"));
 app.use(require("./routes/booksRoutes"));
 app.use(require("./routes/cartRoutes"))
-
+app.use(require("./routes/AdminRoutes"));
 
 
 // Start server

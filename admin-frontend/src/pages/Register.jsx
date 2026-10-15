@@ -3,7 +3,7 @@ import '../styles/auth.css';
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { setUser } from "../store/userSlice";
-
+import ForgotPassword from "./ForgotPassword";
 const RegisterAdmin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");

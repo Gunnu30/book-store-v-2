@@ -1,4 +1,4 @@
-const supabase = require('../config/db');
+const {supabaseServiceRole} = require('../config/db');
 exports.addBook = async ({title, author, priceFloat, description, cover_url}) => {
     try {
         console.log("Model: Attempting to insert...", title);
@@ -33,7 +33,7 @@ exports.addBookGenres = async (bookId,genres) =>{
         for(let i = 0;i<len;i++){
 
             const {genre_id , score} = genres[i];
-            const {data ,error}= await supabase
+            const {data ,error}= await supabaseServiceRole
             .from("book_genres")
             .insert({
                 book_id:bookId,
@@ -52,7 +52,7 @@ exports.addBookGenres = async (bookId,genres) =>{
 
 exports.getAll = async () =>{
     try{
-        const {data , error} = await supabase
+        const {data , error} = await supabaseServiceRole
         .from('books')
         .select("*");
         if(error)throw error;
@@ -66,7 +66,7 @@ exports.getAll = async () =>{
 
 exports.getBookById = async (id) =>{
     try{
-        const {data,error} = await supabase
+        const {data,error} = await supabaseServiceRole
         .from("books")
         .select("title,author,cover_url")
         .eq("id",id)
@@ -83,7 +83,7 @@ exports.getAllGenres = async (id) => {
     console.log("getAllGenres called with id:", id, "type:", typeof id);
   try {
     // Get all book_ids AND scores for this genre
-    const { data: genreRows, error: genreError } = await supabase
+    const { data: genreRows, error: genreError } = await supabaseServiceRole
       .from("book_genres")
       .select("book_id,score")
       .eq("genre_id", String(id));
@@ -121,7 +121,7 @@ exports.getAllGenres = async (id) => {
     );
     console.log("Step 2 - Query with bookIds:", numericBookIds);
 
-    const { data: books, error: booksError } = await supabase
+    const { data: books, error: booksError } = await supabaseServiceRole
       .from("books")
       .select("id,title,author,price,cover_url,description")
       .in("id", numericBookIds);

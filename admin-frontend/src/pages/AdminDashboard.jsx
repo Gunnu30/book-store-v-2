@@ -21,7 +21,8 @@ const AdminDashboard = () => {
         const getAdminDashboardDetails = async () => {
             const api = import.meta.env.VITE_API_URL;
             try{
-                const res = await fetch(`${api}/admin/dashboard`)
+                const res = await fetch(`${api}/dashboard`)
+                console.log(res);
                 if(!res){
                     //set message as error while fetching 
                 }

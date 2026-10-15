@@ -18,24 +18,8 @@ const Cart = () => {
                 });
                 const data = await res.json();
                 const cartItems = data.data;
-                console.log(cartItems);
-
-                // 2. Fetch Book Details for each item in the cart
-                const detailedItems = await Promise.all(
-                    cartItems.map(async (item) => {
-                        const bookRes = await fetch(`${import.meta.env.VITE_API_URL}/books/${item.book_id}`, {method: "GET", credentials: "include"});
-                        const bookData = await bookRes.json();
-                        console.log("book Data", bookData);
-                        return { 
-                            ...item, 
-                            title: bookData.title, 
-                            cover_url: bookData.cover_url,
-                            itemTotal: Number(item.price) * Number(item.quantity)
-                        };
-                    })
-                );
-                console.log("Detailed", detailedItems);
-                setList(detailedItems);
+                console.log(cartItems)
+                setList(cartItems)
             } catch (e) {
                 console.log("Error fetching cart details:", e.message);
             } finally {
@@ -46,8 +30,10 @@ const Cart = () => {
         getFullCartData();
     }, []);
 
-    // 3. Calculate Grand Total
-    const grandTotal = list.reduce((acc, curr) => acc + curr.itemTotal, 0);
+    const grandTotal = list.reduce((acc, curr) => {
+        const itemTotal = Number(curr?.itemTotal ?? (Number(curr?.quantity || 0) * Number(curr?.price || 0)));
+        return acc + itemTotal;
+    }, 0);
 
     if (loading) return <div style={{ textAlign: "center", marginTop: "50px" }}>Loading Cart...</div>;
 
@@ -66,7 +52,10 @@ const Cart = () => {
             <hr />
             
             <ul style={{ listStyle: "none", padding: 0 }}>
-                {list.map((each) => (
+                {list.map((each) => {
+                    const itemTotal = Number(each?.itemTotal ?? (Number(each?.quantity || 0) * Number(each?.price || 0)));
+
+                    return (
                     <li key={each.id} className="cart-item" style={{ 
                         display: "flex", 
                         alignItems: "center", 
@@ -118,11 +107,12 @@ const Cart = () => {
                                 color: "#47bada",
                                 fontSize: "clamp(16px, 2vw, 26px)" 
                             }}>
-                                Total: ₹{each.itemTotal.toFixed(2)}
+                                Total: ₹{itemTotal.toFixed(2)}
                             </p>
                         </div>
                     </li>
-                ))}
+                    );
+                })}
             </ul>
 
             {/* Grand Total Section */}

@@ -15,6 +15,8 @@ routes.post('/login',authController.loginUser)
 //admin routes
 routes.post('/admin/register',authController.registerUser);
 routes.post("/admin/login" , authController.loginUser);
+routes.post("/admin/forgot-password", adminController.forgotPassword)
+routes.post('/admin/reset-password' , adminController.resetPassword)
 
 routes.post('/admin/add-book',authMiddleware,adminController.addBook);
 

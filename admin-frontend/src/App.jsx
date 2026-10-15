@@ -17,6 +17,9 @@ import LoginAdmin from "./pages/Login";
 import AdminDashboard from "./pages/AdminDashboard";
 import Operations from "./pages/Operations";
 import AdminAddBook from "./pages/AdminAddBook";
+import AdminBooks from "./pages/AdminBooks";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 const AdminLayOut = () =>(
   <div className="main-container">
@@ -41,15 +44,22 @@ function App() {
     <Router>
       <GlobalStyle bgTheme={bgTheme} />
       <Routes>
-          <Route path="/" element={<Navigate to="/admin/dashboard" />} />
-
+        <Route  path="/admin/reset-password" element={<ResetPassword/>}/>
+        <Route path="/admin" element={<Navigate to="/admin/login" />} />
+        <Route path="/" element={<Navigate to ="/admin/login"/>} />
+        <Route element={<PublicRoutes/>}>
           <Route path="/admin/login" element={<LoginAdmin />} />
           <Route path="/admin/register" element={<RegisterAdmin />} />
+          <Route path="/admin/forgot-password" element={<ForgotPassword/>} />
+        </Route>
+        <Route element={<ProtectedRoutes/>}>
           <Route element={<AdminLayOut/>}>
             <Route path="/admin/dashboard" element={<AdminDashboard/>}></Route>
             <Route path="/admin/operations" element={<Operations/>}></Route>
             <Route path="/admin/add-book" element={<AdminAddBook/>}></Route>
+            <Route path="/admin/books" element={<AdminBooks />} />
           </Route>
+        </Route>
 
       
       </Routes>
