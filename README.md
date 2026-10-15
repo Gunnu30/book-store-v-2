@@ -87,6 +87,11 @@ REDIS_URL=redis://localhost:6379
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_ANON_KEY=your_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+
+# Nodemailer email credentials
+EMAIL_USER=your_email@example.com
+EMAIL_PASS=your_email_password_or_app_password
+
 ```
 
 Create `.env` files in both `user-frontend/` and `admin-frontend/`:
