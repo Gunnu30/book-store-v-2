@@ -1,8 +1,5 @@
 const { supabaseServiceRole } = require("../config/db")
 
-
-
-
 exports.getAllUsers = async () =>{
     try{
         const {data,error} = await supabaseServiceRole 
