@@ -11,7 +11,7 @@ exports.getAllUsers = async () =>{
         .eq("role" , 'user');
 
         if(error)throw error;
-
+        console.log("hii" , data)
         return data;
     }catch(err){
         return err;

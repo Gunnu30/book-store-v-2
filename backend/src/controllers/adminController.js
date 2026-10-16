@@ -1,6 +1,7 @@
 const { supabaseServiceRole } = require('../config/db');
 const bookModel = require('../models/booksModel');
-const { findUserByEmail,saveResetToken,getUser,updatePasswrod } = require('../models/userModel');
+const userModel = require('../models/userModel');
+const adminModel= require('../models/adminModel');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 
@@ -21,30 +22,29 @@ exports.addBook = async (req , res) =>{
     }
 
 }
-
-
-exports.allStudents = async (req,res) =>{
+exports.allUsers = async (req,res) =>{
     try{
-        const data = await supabaseServiceRole.getAllUsers();
-        return res.status(201).json({message:"Students List is Retrived.",data});
+        console.log("in")
+        const data = await adminModel.getAllUsers();
+        console.log(data);
+        return res.status(200).json({message:"users List is Retrived.",data});
     }catch(err){
-        return res.status(500).json({message:"Error while Selections all students"});
+        return res.status(500).json({message:"Error while Selections all users"});
     }
 
 }
-
 exports.forgotPassword = async (req,res) =>{
     console.log(req.body);
     try{
         const {email} = req.body;
         console.log(email)
-        const data = await findUserByEmail(email);
+        const data = await userModel.findUserByEmail(email);
         if(!data) return res.status(403).json({message:"No User Exists"});
 
         const token = crypto.randomBytes(32).toString("hex");
         console.log(token)
         console.log(data.id)
-        await saveResetToken(data.id,token);
+        await userModel.saveResetToken(data.id,token);
 
         await sendResetMail(email,token);
         
@@ -59,11 +59,11 @@ exports.resetPassword = async (req,res)=>{
 
     const {newPassword,token} = req.body;
     try{
-        const user = await getUser('d552b8e0d08485a65a0b4475bc0e5be530e939d4a3bda5f3e08ec45d44c836db');
+        const user = await userModel.getUser(token);
         if(!user || user.details === null)return res.status(404).json({message:"User Doesn't exist"});
         const hasPass = await bcrypt.hash(newPassword,10);
         console.log("hiii",hasPass)
-        const updated = await updatePasswrod(user,hasPass);
+        const updated = await userModel.updatePasswrod(user,hasPass);
         if(updated){
             await supabaseServiceRole
             .from("password_resets")

@@ -21,8 +21,9 @@ const AdminDashboard = () => {
         const getAdminDashboardDetails = async () => {
             const api = import.meta.env.VITE_API_URL;
             try{
-                const res = await fetch(`${api}/dashboard`)
-                console.log(res);
+                const res = await fetch(`${api}/admin/dashboard`,{method:"GET",credentials:'include'})
+                const data = await res.json();
+                console.log(data);
                 if(!res){
                     //set message as error while fetching 
                 }
@@ -32,7 +33,7 @@ const AdminDashboard = () => {
             }
         }
         getAdminDashboardDetails();
-    })
+    },[])
     return (
         <div className='w-full h-full flex justify-center items-center'>
             <div className='flex justify-center items-center'>
