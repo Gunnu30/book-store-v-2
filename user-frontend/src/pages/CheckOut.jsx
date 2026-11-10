@@ -24,7 +24,8 @@ const Checkout = () => {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ 
-                            paymentId: response.razorpay_payment_id 
+                            paymentId: response.razorpay_payment_id ,
+                            amount
                         }),
                         credentials: "include"
                     });

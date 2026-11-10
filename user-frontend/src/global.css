@@ -42,3 +42,16 @@ select:hover{
     transition:0.5s;
 }
 
+@font-face {
+  font-family: 'Font Awesome 6 Solid';
+  font-display: swap; /* Tells the browser to show fallback text immediately */
+  src: url('./assets/fa-solid-...woff2') format('woff2');
+}
+
+button {
+    color : orange
+}
+
+button:hover{
+    color : gold
+}

@@ -34,7 +34,7 @@ const useAuthHydration = () => {
     };
 
     checkAuth();
-  }, [dispatch, apiUrl]);
+  }, []);
 
   return { isLoading };
 };

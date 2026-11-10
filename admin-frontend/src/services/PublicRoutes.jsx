@@ -6,10 +6,8 @@ const PublicRoutes = () => {
 
     if (user) {
         // If logged in, redirect based on their authority
-        if (role === 'admin') {
-            return <Navigate to="/admin/dashboard" replace />;
-        }
-        return <Navigate to="/" replace />;
+        
+        return <Navigate to="/admin/dashboard" replace />;
     }
 
     // If NOT logged in, show the login/register page they asked for

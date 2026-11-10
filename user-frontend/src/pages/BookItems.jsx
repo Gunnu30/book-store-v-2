@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useLocation, useMatch, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft, Heart, ShoppingCart, Loader2 } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
 import { setBookToCart } from "../store/cartSlice";
@@ -13,7 +13,14 @@ const BookItems = () => {
     const navigate = useNavigate();
     
     const bookData = location.state?.fullBookData;
-    console.log(bookData , "hiii")
+    const id = bookData?.id;
+    const existingItem = useMemo(
+        () => cartItems.find((item) => id != null && String(item.id) === String(id)),
+        [cartItems, id]
+    );
+    const [quantity, setQuantity] = useState(existingItem?.quantity ?? 1);
+    const [loading, setLoading] = useState(false);
+
     if (!bookData) {
         return (
             <div className={`error-screen ${theme}`}>
@@ -23,14 +30,8 @@ const BookItems = () => {
         );
     }
 
-    const { id, title, price, description, author, cover_url, stock_count } = bookData;
+    const { title, price, description, author, cover_url, stock_count } = bookData;
     const inStock = stock_count > 0;
-    const existingItem = useMemo(() => cartItems.find(item => item.id == id)[cartItems,id]);
-
-    const [quantity, setQuantity] = useState(existingItem ? existingItem.quantity : 1);
-    const [loading, setLoading] = useState(false);
-
-
     
 
     const handleAddToCart = async () => {

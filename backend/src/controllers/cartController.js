@@ -24,6 +24,7 @@ exports.cartItems = async (req, res) => {
 };
 
 exports.confirmPayment = async (req, res) => {
+  console.log(req.body , "Hii")
   const { paymentId } = req.body;
   const userId = req.user.id;
   try {

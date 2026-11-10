@@ -18,19 +18,19 @@
 /* Hover - only change text/icon color */
 .logout-btn:hover {
   background-color: #d10707;
-  color:#ffffff;
+  color: #ffffff;
 }
 
 .navbar {
   width: 100%;
   position: sticky;
-  z-index:1000;
+  z-index: 1000;
   top: 0;
   transition: all 0.3s ease;
 }
 
 .navbar-container {
-  min-width:100%;
+  min-width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,7 +47,7 @@
 /* Base Links Style */
 .navbar-links {
   display: flex;
-  align-items:center;
+  align-items: center;
   list-style: none;
   gap: 25px;
   margin: 0;
@@ -90,7 +90,7 @@
 
 .mobile-menu-icon, .mobile-theme-item { display: none; }
 
-/* MOBILE RESPONSIVE (The "Screening" Section) */
+/* MOBILE RESPONSIVE */
 @media (max-width: 730px) {
   .theme-toggle-desktop { display: none; }
   .mobile-menu-icon { display: block !important; cursor: pointer; font-size: 1.5rem; background: none; border: none; color: inherit; }
@@ -107,20 +107,21 @@
     box-shadow: 0 10px 15px rgba(0,0,0,0.2);
     z-index: 1001;
   }
-  .banner-container{
-    flex-direction:column;
-    padding-left:3px;
-    padding-right:3px;
-    font-size:10px;
+  
+  .banner-container {
+    flex-direction: column;
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 10px;
   }
-  .banner-text-container{
-    order:2;
+  
+  .banner-text-container {
+    order: 2;
   }
-  .banner-imag-container{
-    order:1;
+  
+  .banner-imag-container {
+    order: 1;
   }
-
-  /* ✅ This forces the menu to show and use the right background color */
   .navbar-links.active {
     display: flex !important;
   }
@@ -142,30 +143,31 @@
   }
 }
 
-.banner-container{
-  display:flex;
-  height:calc(100vh - 200px);
+.banner-container {
+  display: flex;
+  height: calc(100vh - 200px); /* Fixed calc syntax and removed diff marker */
   justify-content: space-around;
-  width: 100%; /* Ensure there is extra space to distribute */
-  align-items:center;
-  padding-left:15px;
-  padding-right:15px;
+  width: 100%;
+  align-items: center;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
-.footer{
-  display:flex;
-  flex-direction:column;
-  justify-content:space-around;
-  hieght:130px;
-  width:100%;
-  align-items:center;
-}
-.footer-links{
-  display:flex;
-  justify-content:space-around;
-  width:300px;
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 130px; /* Fixed typo: hieght -> height */
+  width: 100%;
+  align-items: center;
 }
 
-.heart-button{
-  margin-bottom:3px;
+.footer-links {
+  display: flex;
+  justify-content: space-around;
+  width: 300px;
+}
+
+.heart-button {
+  margin-bottom: 3px;
 }

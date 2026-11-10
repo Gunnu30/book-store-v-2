@@ -8,14 +8,14 @@ const generateToken = (res, user) => {
   const token = jwt.sign(
     { id: user.id, username: user.username, role: user.role },
     process.env.JWT_SECRET,
-    { expiresIn: "7d" }
+    { expiresIn: "7d" } // in cookies for humans to read
   );
 
   res.cookie("token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days for browser in cookies to stay .
   });
 };
 
@@ -31,9 +31,8 @@ exports.getMe = async (req, res) => {
 };
 
 exports.registerUser = async (req, res) => {
-  console.log(req.body)
   try {
-    const { username, email, password,role } = req.body;
+    const { username, email, password } = req.body;
     const existingUser = await userModel.findByEmailOrUserName(username, email);
     
     if (existingUser) {
@@ -42,16 +41,13 @@ exports.registerUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    console.log("hased pass",hashedPassword);
-    const newUser = await userModel.createUser(username, email, hashedPassword, role);
-    console.log("new User",newUser);
-    // Use helper to set cookie with ID
+    const newUser = await userModel.createUser(username, email, hashedPassword, 'user');
     generateToken(res, newUser);
 
     return res.status(201).json({ 
       message: "User registered successfully", 
       username: newUser.username,
-      role: newUser.role 
+      role: 'user'
     });
   } catch (err) {
     console.error("Registration Error:", err);
@@ -61,16 +57,12 @@ exports.registerUser = async (req, res) => {
 
 exports.loginUser = async (req, res) => {
   const { email, password} = req.body;
-  console.log(email,password)
   try {
     const user = await userModel.findUserByEmail(email);
-    console.log(user)
     if (!user) return res.status(400).json({ error: "Invalid credentials" });
-
-
-    if(user.role !== 'admin')return res.status(400).json({message:"Your Not Admin"});
     
     const isMatch = await bcrypt.compare(password, user.password_hash);
+
     if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
 
     // Use helper to set cookie with ID

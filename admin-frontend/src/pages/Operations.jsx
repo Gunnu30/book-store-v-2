@@ -55,11 +55,11 @@ const Operations = () => {
                 <span className="shrink-0 w-11 h-11 p-4 rounded-full border border-[#D4AF37]/40 flex items-center justify-center group-hover:border-[#D4AF37] transition-colors">
                   <i className={`fa-solid ${action.icon} text-[#D4AF37] text-base`}></i>
                 </span>
-                <span className="min-w-0 pb-4">
-                  <h3 className={`font-semibold ${isDark ? 'text-[#F3EAD3]' : 'text-gray-900'}`}>
+                <span className="min-w-0 pb-4 bg-transparent">
+                  <h3 className={` bg-transparent font-semibold ${isDark ? 'text-[#F3EAD3]' : 'text-gray-900'}`}>
                     {action.title}
                   </h3>
-                  <p className={`text-sm mt-0.5 ${isDark ? 'text-[#F3EAD3]/55' : 'text-gray-500'}`}>
+                  <p className={`bg-transparent text-sm mt-0.5 ${isDark ? 'text-[#F3EAD3]/55' : 'text-gray-500'}`}>
                     {action.desc}
                   </p>
                 </span>

@@ -23,6 +23,13 @@ const Books = () => {
         fetchBooks();
     }, [api_url]);
 
+    const getOptimisedUrl = (url) =>{
+        if(!url)return "";
+        if(url.includes('cloudinary.com')){
+            return url.replace('/upload/','/upload/f_auto,q_auto/');
+        }
+        return url
+    }
     const renderBookItem = (book) => {
         const { id, title, cover_url, description, price } = book;
 
@@ -35,8 +42,11 @@ const Books = () => {
                 >
                         <img 
                             className="w-auto object-cover h-full" 
-                            src={cover_url} 
+                            src={getOptimisedUrl(cover_url)} 
                             alt={title} 
+                            width = "130"
+                            height = "200"
+                            loading = "lazy"
                         />
 
                     <div className="h-full" style={{ padding: "5px" }}>

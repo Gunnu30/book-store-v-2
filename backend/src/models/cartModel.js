@@ -27,7 +27,7 @@ const ensureRedis = async () => {
 
 exports.addToCart = async (userId, bookId, quantity, price, cover_url, title) => {
   try {
-    const cacheAvailable = await ensureRedis();
+    const cacheAvailable = await ensureRedis(); //true or false gives
 
     let cartList = [];
     if (cacheAvailable) {
@@ -55,7 +55,7 @@ exports.addToCart = async (userId, bookId, quantity, price, cover_url, title) =>
     }
 
     if (cacheAvailable) {
-      await redis.set(String(userId), JSON.stringify(cartList));
+      await redis.set(String(userId), JSON.stringify(cartList),'EX',3600);
     }
 
     const { data, error } = await supabaseServiceRole

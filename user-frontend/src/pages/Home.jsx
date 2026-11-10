@@ -1,6 +1,6 @@
 import Footer from "../components/Footer";
 import "../styles/home.css";
-import bannerIMg from '../assets/assets/banner.png';
+import bannerIMg from '../assets/assets/banner.webp';
 import { useEffect } from "react";
 
 function Home() {
@@ -29,7 +29,7 @@ function Home() {
           </div>
           {/* Banner image */}
           <div className="banner-imag-container">
-            <img src={bannerIMg} alt="Banner" className="banner-image" />
+            <img src={bannerIMg} alt="Banner" className="banner-image" max-width="529" width="100%" height="auto" />
           </div>
         </div>
         <div>

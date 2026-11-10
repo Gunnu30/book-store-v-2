@@ -85,9 +85,7 @@ const LoginAdmin = () => {
           <button type="submit">{loginText}</button>
         </form>
 
-        <p style={{ color: '#fff', textAlign: 'center', fontSize: '0.9rem' }}>
-          Haven't an account? <Link to="/admin/register" className="login-link">Register</Link>
-        </p>
+       
         <button onClick={handleForgotPasswrod} className='text-sm' style={{boxShadow:'none',font:'12px' ,backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}>
           <span style={{ color: 'red',font:'12px' }}>Forgot Password!</span>
         </button>
