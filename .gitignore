@@ -1,5 +1,4 @@
 # Ignore environment files
-.env
 frontend/.env
 backend/.env
 
@@ -24,5 +23,5 @@ pnpm-debug.log*
 Thumbs.db
 
 # IDE/editor settings
-.vscode/
 .idea/
+config.bat
